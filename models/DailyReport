@@ -1,0 +1,12 @@
+const mongoose = require('mongoose');
+
+const dailyReportSchema = new mongoose.Schema({
+  date: { type: Date, required: true },
+  diseaseId: { type: mongoose.Schema.Types.ObjectId, ref: 'Disease' },
+  seekEmployeeIds: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Employee' }],
+  presentedEmployeeIds: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Employee' }]
+});
+
+const DailyReport = mongoose.model('DailyReport', dailyReportSchema);
+
+module.exports = DailyReport;
