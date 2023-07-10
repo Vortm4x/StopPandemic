@@ -1,2 +1,36 @@
-node_modules
-package-lock.json
+
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# Compiled output
+backend/dist
+backend/tmp
+backend/out-tsc
+backend/bazel-out
+
+# Node
+frontend/node_modules
+backend/node_modules
+backend/npm-debug.log
+backend/yarn-error.log
+
+
+# Visual Studio Code
+backend/.vscode/*
+backend/!.vscode/settings.json
+backend/!.vscode/tasks.json
+backend/!.vscode/launch.json
+backend/!.vscode/extensions.json
+backend/.history/*
+
+# Miscellaneous
+backend/.angular/cache
+backend/.sass-cache/
+backend/connect.lock
+backend/coverage
+backend/libpeerconnection.log
+backend/testem.log
+backend/typings
+
+# System files
+backend/.DS_Store
+backend/Thumbs.db

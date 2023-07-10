@@ -2,14 +2,13 @@ const express = require('express');
 const connectDB = require('./db');
 const security = require('./security');
 
-const express = require('express');
-const companyRoutes = require('./routes/company');
-const employeeRoutes = require('./routes/employee');
-const adminRoutes = require('./routes/admin');
-const diseaseRoutes = require('./routes/disease');
-const symptomRoutes = require('./routes/symptom');
-const healthReportRoutes = require('./routes/healthReport');
-const attendanceRoutes = require('./routes/attendance');
+const companyRoutes = require('./api/company');
+const employeeRoutes = require('./api/employee');
+const adminRoutes = require('./api/admin');
+const diseaseRoutes = require('./api/disease');
+const symptomRoutes = require('./api/symptom');
+const healthReportRoutes = require('./api/health_report');
+const attendanceRoutes = require('./api/attendance');
 
 const app = express();
 
