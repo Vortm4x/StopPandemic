@@ -1,5 +1,5 @@
 const React = require('react');
-const { BrowserRouter, Route, Switch, Link } = require('react-router-dom');
+const { BrowserRouter, Route, Routes, Link } = require('react-router-dom');
 
 function Home() {
   return <h1>Home Page</h1>;
@@ -31,11 +31,11 @@ function App() {
           </ul>
         </nav>
 
-        <Switch>
-          <Route exact path="/" component={Home} />
-          <Route path="/about" component={About} />
-          <Route path="/contact" component={Contact} />
-        </Switch>
+        <Routes>
+          <Route exact path="/" component={<Home/>} />
+          <Route path="/about" component={<About/>} />
+          <Route path="/contact" component={<Contact/>} />
+        </Routes>
       </div>
     </BrowserRouter>
   );

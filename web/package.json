@@ -2,19 +2,16 @@
   "name": "stoppandemic",
   "version": "1.0.0",
   "description": "АПЗ курсова робота",
-  "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "build": "parcel build client/src/index.html --out-dir frontend/build"
+    "build": "parcel build frontend/public/index.html --dist-dir frontend/build --no-cache"
   },
   "author": "Maksym Trehubenko",
   "license": "ISC",
-  "devDependencies": {
-    "parcel": "^2.0.0"
-  },
   "dependencies": {
     "express": "^4.18.2",
     "mongoose": "^7.3.1",
+    "parcel": "^2.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.14.1"
