@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "build": "parcel build ./frontend/src/index.js --no-cache"
+    "build": "parcel build client/src/index.html --out-dir frontend/build"
   },
   "author": "Maksym Trehubenko",
   "license": "ISC",
