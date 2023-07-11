@@ -15,15 +15,21 @@ for (let endpoint in backendRoutes) {
 }
 
 
-app.get('/', (req, res) => {
+
+
+app.get('/admin/login', (_req, res) => {
     res.sendFile(path.join(__dirname, './frontend/build/index.html'));
 });
 
-app.get('/about', (req, res) => {
+app.get('/admin/main', (_req, res) => {
     res.sendFile(path.join(__dirname, './frontend/build/index.html'));
 });
 
-app.get('/contact', (req, res) => {
+app.get('/client/login', (_req, res) => {
+    res.sendFile(path.join(__dirname, './frontend/build/index.html'));
+});
+
+app.get('/client/main', (_req, res) => {
     res.sendFile(path.join(__dirname, './frontend/build/index.html'));
 });
 

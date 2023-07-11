@@ -4,7 +4,7 @@
   "description": "АПЗ курсова робота",
   "scripts": {
     "start": "node index.js",
-    "build": "parcel build frontend/public/index.html --dist-dir frontend/build --no-cache"
+    "build": "parcel build frontend/public/index.html --dist-dir frontend/build --no-cache --no-optimize"
   },
   "author": "Maksym Trehubenko",
   "license": "ISC",
