@@ -7,6 +7,7 @@ const Main = require('./pages/Main');
 const Layout = () => {
     return (
         <>
+            
             <Outlet />
         </>
     );

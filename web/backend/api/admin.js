@@ -16,6 +16,11 @@ router.post('/register', (req, res) => {
         });
 });
 
+router.post('/login', (req, res) => {
+    
+    
+});
+
 // Get all admins
 router.get('/', (req, res) => {
     Admin.find()
