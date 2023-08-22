@@ -14,11 +14,11 @@ const employeeSchema = new mongoose.Schema({
         ref: 'Company', 
         required: true 
     },
-    accessLevel: { 
-        type: String, 
-        enum: ['regular', 'moder', 'admin', 'owner'], 
-        required: true 
-    },
+    // accessLevel: { 
+    //     type: String, 
+    //     enum: ['regular', 'moder', 'admin', 'owner'], 
+    //     required: true 
+    // },
     name: { 
         type: String, 
         required: true 

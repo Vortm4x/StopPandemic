@@ -1,0 +1,73 @@
+.admin-logout-container {
+  width: 100%;
+  display: flex;
+  overflow: auto;
+  min-height: 100vh;
+  align-items: center;
+  flex-direction: column;
+}
+.admin-logout-admin-header {
+  height: auto;
+  display: flex;
+  align-self: stretch;
+  align-items: center;
+  padding-top: var(--dl-space-space-oneandhalfunits);
+  padding-left: var(--dl-space-space-threeunits);
+  padding-right: var(--dl-space-space-threeunits);
+  padding-bottom: var(--dl-space-space-oneandhalfunits);
+  justify-content: space-between;
+  background-color: #3c3131;
+}
+.admin-logout-navlink {
+  display: contents;
+}
+.admin-logout-logo-title {
+  flex: 0 0 auto;
+  width: auto;
+  height: auto;
+  display: flex;
+  align-self: center;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+.admin-logout-header-name {
+  color: #dad8d8;
+}
+.admin-logout-admin-main {
+  flex: auto;
+  width: 100%;
+  display: flex;
+  position: relative;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+.admin-logout-text {
+  font-size: xxx-large;
+  font-style: normal;
+  text-align: center;
+  font-weight: 600;
+}
+@media(max-width: 991px) {
+  .admin-logout-header-name {
+    color: rgb(218, 216, 216);
+  }
+  .admin-logout-text {
+    font-size: x-large;
+  }
+}
+@media(max-width: 880px) {
+  .admin-logout-admin-header {
+    padding-top: var(--dl-space-space-unit);
+    padding-left: var(--dl-space-space-oneandhalfunits);
+    padding-right: var(--dl-space-space-oneandhalfunits);
+    padding-bottom: var(--dl-space-space-unit);
+  }
+}
+@media(max-width: 600px) {
+  .admin-logout-admin-header {
+    padding-left: var(--dl-space-space-unit);
+    padding-right: var(--dl-space-space-unit);
+  }
+}

@@ -1,0 +1,31 @@
+.admin-nav-bar-admin-nav-bar {
+  width: 100%;
+  height: auto;
+  display: flex;
+  position: relative;
+  align-items: center;
+  padding-top: var(--dl-space-space-oneandhalfunits);
+  align-content: space-around;
+  padding-bottom: var(--dl-space-space-oneandhalfunits);
+  justify-content: space-around;
+  background-color: #3c3131;
+}
+.admin-nav-bar-navlink {
+  text-decoration: none;
+}
+.admin-nav-bar-navlink1 {
+  text-decoration: none;
+}
+.admin-nav-bar-navlink2 {
+  text-decoration: none;
+}
+.admin-nav-bar-link {
+  text-decoration: none;
+}
+.admin-nav-bar-link1 {
+  text-decoration: none;
+}
+
+
+
+

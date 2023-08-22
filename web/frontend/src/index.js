@@ -1,13 +1,36 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { BrowserRouter } from 'react-router-dom';
-import App from './App';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-    <React.StrictMode>
-        <BrowserRouter>
-            <App />
-        </BrowserRouter>
-    </React.StrictMode>
-);
+import './style.css'
+import AdminMain from './views/admin-main'
+import ClientHome from './views/client-home'
+import AdminCompanies from './views/admin-companies'
+import AdminNewAdmin from './views/admin-new-admin'
+import AdminExportData from './views/admin-export-data'
+import AdminNewCompany from './views/admin-new-company'
+import AdminLogin from './views/admin-login'
+import ClientLogin from './views/client-login'
+import ClientSignUp from './views/client-sign-up'
+import AdminLogout from './views/admin-logout'
+
+const App = () => {
+  return (
+    <Router>
+      <div>
+        <Route component={AdminMain} exact path="/admin/main" />
+        <Route component={ClientHome} exact path="/" />
+        <Route component={AdminCompanies} exact path="/admin/companies" />
+        <Route component={AdminNewAdmin} exact path="/admin/new-admin" />
+        <Route component={AdminExportData} exact path="/admin/export-data" />
+        <Route component={AdminNewCompany} exact path="/admin/new-company" />
+        <Route component={AdminLogin} exact path="/admin/login" />
+        <Route component={ClientLogin} exact path="/client/login" />
+        <Route component={ClientSignUp} exact path="/client/signup" />
+        <Route component={AdminLogout} exact path="/admin/main1" />
+      </div>
+    </Router>
+  )
+}
+
+ReactDOM.render(<App />, document.getElementById('app'))

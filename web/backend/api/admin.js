@@ -1,11 +1,24 @@
 const express = require('express');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+
 const Admin = require('../models/Admin');
+const security = require('../security')
 
 const router = express.Router();
 
 // Register a new admin
 router.post('/register', (req, res) => {
-    const admin = new Admin(req.body);
+
+    const { username, fullName, password, assignee } = req.body;
+    const hashedPassword = bcrypt.hashSync(password, 10);
+
+    const admin = new Admin({
+        username,
+        fullName,
+        password: hashedPassword,
+        assignee,
+    });
 
     admin.save()
         .then(savedAdmin => {
@@ -17,9 +30,41 @@ router.post('/register', (req, res) => {
 });
 
 router.post('/login', (req, res) => {
-    
-    
+    const { username, password } = req.body;
+
+    Admin.findOne({ username })
+        .then(admin => {
+            if (admin) {
+                bcrypt.compare(password, admin.password)
+                    .then(passwordMatch => {
+                        if (passwordMatch) {
+                            const token = jwt.sign({ id: admin._id }, security.session_key, { expiresIn: '1h' });
+
+                            res.status(200).json({
+                                adminId: admin._id,
+                                fullName: admin.fullName,
+                                username: admin.username,
+                                token,
+                            });
+                        } else {
+                            res.status(401).json({ message: 'Login failed: Invalid credentials' });
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error comparing passwords:', error);
+                        res.status(500).json({ message: 'An error occurred while logging in' });
+                    });
+            } else {
+                res.status(401).json({ message: 'Login failed: Invalid credentials' });
+            }
+        })
+        .catch(error => {
+            console.error('Error finding admin:', error);
+            res.status(500).json({ message: 'An error occurred while logging in' });
+        });
 });
+
+
 
 // Get all admins
 router.get('/', (req, res) => {

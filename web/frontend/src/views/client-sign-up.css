@@ -1,0 +1,56 @@
+.client-sign-up-container {
+  width: 100%;
+  display: flex;
+  overflow: auto;
+  min-height: 100vh;
+  align-items: center;
+  flex-direction: column;
+}
+.client-sign-up-client-main {
+  flex: auto;
+  width: 100%;
+  display: flex;
+  align-self: stretch;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+.client-sign-up-client-login-form {
+  gap: var(--dl-space-space-twounits);
+  width: auto;
+  height: auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  padding-top: var(--dl-space-space-oneandhalfunits);
+  padding-left: var(--dl-space-space-unit);
+  border-radius: 20px;
+  padding-right: var(--dl-space-space-unit);
+  flex-direction: column;
+  padding-bottom: var(--dl-space-space-oneandhalfunits);
+  justify-content: center;
+  background-color: #115f11;
+}
+.client-sign-up-login-button {
+  width: 50%;
+  align-self: center;
+  border-radius: var(--dl-radius-radius-radius8);
+}
+.client-sign-up-login-button-text {
+  font-size: x-large;
+  border-radius: var(--dl-radius-radius-radius8);
+}
+@media(max-width: 991px) {
+  .client-sign-up-email {
+    width: 100%;
+    align-self: center;
+  }
+  .client-sign-up-password {
+    width: 100%;
+    align-self: center;
+  }
+  .client-sign-up-reapeat-password {
+    width: 100%;
+    align-self: center;
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "name": "stoppandemic",
+  "version": "1.0.0",
+  "description": "АПЗ курсова робота",
+  "author": "Maksym Trehubenko",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.1",
+    "mongoose": "^7.3.1"
+  }
+}

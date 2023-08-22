@@ -9,11 +9,15 @@ const adminSchema = new mongoose.Schema({
         type: String, 
         required: true 
     },
-    role: { 
+    password: { 
         type: String, 
-        enum: ['admin', 'moder', 'support'], 
         required: true 
     },
+    // role: { 
+    //     type: String, 
+    //     enum: ['admin', 'moder', 'support'], 
+    //     required: true 
+    // },
     assignee: { 
         type: mongoose.Schema.Types.ObjectId, 
         ref: 'Admin' 
