@@ -19,7 +19,7 @@ const employeeSchema = new mongoose.Schema({
     //     enum: ['regular', 'moder', 'admin', 'owner'], 
     //     required: true 
     // },
-    name: { 
+    fullname: { 
         type: String, 
         required: true 
     },

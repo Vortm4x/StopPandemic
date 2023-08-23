@@ -27,31 +27,32 @@ router.post('/register', (req, res) => {
 
 // Retrieve all companies
 router.get('/', (req, res) => {
-  Company.find()
-    .then(companies => {
-      res.json(companies);
-    })
-    .catch(error => {
-      console.error(error);
-      res.status(500).json({ error: 'Failed to retrieve companies.' });
-    });
-});
-
-// Retrieve a single company by ID
-router.get('/', (req, res) => {
   const companyId = req.query.id;
 
-  Company.findById(companyId)
-    .then(company => {
-      if (!company) {
-        return res.status(404).json({ error: 'Company not found.' });
-      }
-      res.json(company);
-    })
-    .catch(error => {
-      console.error(error);
-      res.status(500).json({ error: 'Failed to retrieve the company.' });
-    });
+  if (companyId) {
+    // If company ID is provided in query, retrieve a single company by ID
+    Company.findById(companyId)
+      .then(company => {
+        if (!company) {
+          return res.status(404).json({ error: 'Company not found.' });
+        }
+        res.json(company);
+      })
+      .catch(error => {
+        console.error(error);
+        res.status(500).json({ error: 'Failed to retrieve the company.' });
+      });
+  } else {
+    // If no company ID provided, retrieve all companies
+    Company.find()
+      .then(companies => {
+        res.json(companies);
+      })
+      .catch(error => {
+        console.error(error);
+        res.status(500).json({ error: 'Failed to retrieve companies.' });
+      });
+  }
 });
 
 // Update a company by ID

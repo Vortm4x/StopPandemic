@@ -1,20 +1,21 @@
 const express = require('express');
+const bcrypt = require('bcrypt');
 const Employee = require('../models/Employee');
 
 const router = express.Router();
 
 // Create a new employee
 router.post('/register', (req, res) => {
-  const { name, phone, email, password, position, accessLevel, companyId } = req.body;
+  const { fullname, phone, email, password, position, company } = req.body;
+  const hashedPassword = bcrypt.hashSync(password, 10);
 
   const newEmployee = new Employee({
-    name,
+    fullname,
     phone,
     email,
-    password,
+    password: hashedPassword,
     position,
-    accessLevel,
-    companyId
+    company
   });
 
   newEmployee.save()
@@ -28,61 +29,55 @@ router.post('/register', (req, res) => {
 });
 
 
-// Retrieve all employees
-router.get('/', (req, res) => {
-  Employee.find()
-    .then(employees => {
-      res.json(employees);
-    })
-    .catch(error => {
-      console.error(error);
-      res.status(500).json({ error: 'Failed to retrieve employees.' });
-    });
-});
-
-// Retrieve an employee by ID
 router.get('/', (req, res) => {
   const employeeId = req.query.id;
-
-  Employee.findById(employeeId)
-    .then(employee => {
-      if (!employee) {
-        return res.status(404).json({ error: 'Employee not found.' });
-      }
-      res.json(employee);
-    })
-    .catch(error => {
-      console.error(error);
-      res.status(500).json({ error: 'Failed to retrieve the employee.' });
-    });
-});
-
-// Retrieve employees by company ID
-router.get('/', (req, res) => {
   const companyId = req.query.company_id;
-
-  Employee.find({ company: companyId })
-    .then(employees => {
-      res.status(200).json(employees);
-    })
-    .catch(error => {
-      console.error(error);
-      res.status(500).json({ error: 'Failed to retrieve employees by company ID.' });
-    });
-});
-
-// Retrieve employees by office ID
-router.get('/', (req, res) => {
   const officeId = req.query.office_id;
 
-  Employee.find({ office: officeId })
-    .then(employees => {
-      res.status(200).json(employees);
-    })
-    .catch(error => {
-      console.error(error);
-      res.status(500).json({ error: 'Failed to retrieve employees by office ID.' });
-    });
+  if (employeeId) {
+    // Retrieve an employee by ID
+    Employee.findById(employeeId)
+      .then(employee => {
+        if (!employee) {
+          return res.status(404).json({ error: 'Employee not found.' });
+        }
+        res.json(employee);
+      })
+      .catch(error => {
+        console.error(error);
+        res.status(500).json({ error: 'Failed to retrieve the employee.' });
+      });
+  } else if (companyId) {
+    // Retrieve employees by company ID
+    Employee.find({ company: companyId })
+      .then(employees => {
+        res.status(200).json(employees);
+      })
+      .catch(error => {
+        console.error(error);
+        res.status(500).json({ error: 'Failed to retrieve employees by company ID.' });
+      });
+  } else if (officeId) {
+    // Retrieve employees by office ID
+    Employee.find({ office: officeId })
+      .then(employees => {
+        res.status(200).json(employees);
+      })
+      .catch(error => {
+        console.error(error);
+        res.status(500).json({ error: 'Failed to retrieve employees by office ID.' });
+      });
+  } else {
+    // Retrieve all employees if no query provided
+    Employee.find()
+      .then(employees => {
+        res.json(employees);
+      })
+      .catch(error => {
+        console.error(error);
+        res.status(500).json({ error: 'Failed to retrieve employees.' });
+      });
+  }
 });
 
 // Update an employee by ID

@@ -27,13 +27,13 @@ const AdminHeader = (props) => {
 }
 
 AdminHeader.defaultProps = {
-  HeaderName: 'Admin dashboad',
   rootClassName: '',
+  HeaderName: 'Admin dashboad',
 }
 
 AdminHeader.propTypes = {
-  HeaderName: PropTypes.string,
   rootClassName: PropTypes.string,
+  HeaderName: PropTypes.string,
 }
 
 export default AdminHeader

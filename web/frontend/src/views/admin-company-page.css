@@ -1,0 +1,51 @@
+.admin-company-page-container {
+  width: 100%;
+  display: flex;
+  overflow: auto;
+  min-height: 100vh;
+  align-items: center;
+  flex-direction: column;
+}
+.admin-company-page-admin-main {
+  gap: var(--dl-space-space-fourunits);
+  flex: auto;
+  width: 100%;
+  display: flex;
+  position: relative;
+  align-items: center;
+  padding-top: var(--dl-space-space-fourunits);
+  padding-left: var(--dl-space-space-fourunits);
+  padding-right: var(--dl-space-space-fourunits);
+  flex-direction: column;
+  padding-bottom: var(--dl-space-space-fourunits);
+  justify-content: center;
+}
+.admin-company-page-form {
+  gap: var(--dl-space-space-oneandhalfunits);
+  width: auto;
+  height: auto;
+  display: flex;
+  align-self: flex-start;
+  align-items: center;
+  padding-top: var(--dl-space-space-oneandhalfunits);
+  padding-left: var(--dl-space-space-unit);
+  border-radius: 20px;
+  padding-right: var(--dl-space-space-unit);
+  flex-direction: column;
+  padding-bottom: var(--dl-space-space-oneandhalfunits);
+  justify-content: center;
+  background-color: #3c3131;
+}
+.admin-company-page-textarea {
+  width: 100%;
+  height: 234px;
+}
+.admin-company-page-submitt-company-button {
+  width: 50%;
+  align-self: center;
+  border-radius: var(--dl-radius-radius-radius8);
+}
+.admin-company-page-submit-company-button-text {
+  font-size: x-large;
+  border-radius: var(--dl-radius-radius-radius8);
+}

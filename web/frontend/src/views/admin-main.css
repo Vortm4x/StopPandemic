@@ -37,7 +37,6 @@
 .admin-main-admin-main {
   flex: auto;
   width: 100%;
-  border: 2px dashed rgba(120, 120, 120, 0.4);
   display: flex;
   position: relative;
   align-items: flex-start;

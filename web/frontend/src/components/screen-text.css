@@ -1,0 +1,12 @@
+.screen-text-container {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+}
+
+.screen-text-root-class-name {
+  align-self: center;
+}
