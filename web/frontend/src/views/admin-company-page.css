@@ -40,10 +40,31 @@
   width: 100%;
   height: 234px;
 }
-.admin-company-page-submitt-company-button {
+.admin-company-page-container1 {
+  gap: var(--dl-space-space-twounits);
+  flex: 0 0 auto;
+  width: 100%;
+  height: auto;
+  display: flex;
+  align-items: flex-start;
+}
+.admin-company-page-delete-company-button {
+  color: #ffffff;
   width: 50%;
   align-self: center;
   border-radius: var(--dl-radius-radius-radius8);
+  background-color: #e02626;
+}
+.admin-company-page-delete-company-button-text {
+  font-size: x-large;
+  border-radius: var(--dl-radius-radius-radius8);
+}
+.admin-company-page-submit-company-button {
+  color: #ffffff;
+  width: 50%;
+  align-self: center;
+  border-radius: var(--dl-radius-radius-radius8);
+  background-color: #115f11;
 }
 .admin-company-page-submit-company-button-text {
   font-size: x-large;

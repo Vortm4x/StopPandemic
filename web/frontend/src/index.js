@@ -8,6 +8,7 @@ import ClientHome from './views/client-home'
 import AdminCompanies from './views/admin-companies'
 import AdminNewAdmin from './views/admin-new-admin'
 import AdminNewEmployee from './views/admin-new-employee'
+import AdminEmployeePage from './views/admin-employee-page'
 import AdminExportData from './views/admin-export-data'
 import AdminNewCompany from './views/admin-new-company'
 import AdminCompanyPage from './views/admin-company-page'
@@ -15,6 +16,7 @@ import AdminLogin from './views/admin-login'
 import ClientLogin from './views/client-login'
 import ClientSignUp from './views/client-sign-up'
 import AdminLogout from './views/admin-logout'
+
 
 const App = () => {
   return (
@@ -28,6 +30,7 @@ const App = () => {
         <Route component={AdminNewCompany} exact path="/admin/new-company" />
         <Route component={AdminCompanyPage} exact path="/admin/companies/:id" />
         <Route component={AdminNewEmployee} exact path="/admin/new-employee" />
+        <Route component={AdminEmployeePage} exact path="/admin/employee/:id" />
         <Route component={AdminLogin} exact path="/admin/login" />
         <Route component={ClientLogin} exact path="/client/login" />
         <Route component={ClientSignUp} exact path="/client/signup" />

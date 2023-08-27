@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { Helmet } from 'react-helmet'
 
 import AdminHeader from '../components/admin-header'
@@ -15,7 +16,7 @@ const AdminCompanyPage = (props) => {
 
   const [companyData, setCompanyData] = useState(null);
   const [employees, setEmployees] = useState([]);
-
+  const history = useHistory();
 
   useEffect(() => {
     // Fetch company data based on company_id
@@ -60,6 +61,37 @@ const AdminCompanyPage = (props) => {
       .catch(error => console.error('Error updating company data:', error));
   };
 
+  const handleDelete = () => {
+
+    // Delete company and its employees
+    fetch(`/api/company?id=${companyData._id}`, {
+      method: 'DELETE',
+    })
+      .then(response => response.json())
+      .then(deletedResponse => {
+        console.log(deletedResponse.message);
+        
+        employees.forEach(employee => {
+          fetch(`/api/employee?id=${employee._id}`, {
+            method: 'DELETE',
+          })
+            .then(employeeDeletedResponse => employeeDeletedResponse.json())
+            .then(deletedEmployeeResponse => {
+              console.log(deletedEmployeeResponse.message);
+            })
+            .catch(error => {
+              console.error('Error deleting employee:', error);
+            });
+        });
+  
+        history.push('/admin/companies');
+      })
+      .catch(error => {
+        console.error('Error deleting company:', error);
+      });
+  };
+
+
   return (
     <div className="admin-company-page-container">
       <Helmet>
@@ -91,22 +123,34 @@ const AdminCompanyPage = (props) => {
             value={companyData.description}
             onChange={e => setCompanyData({ ...companyData, description: e.target.value })}
           ></textarea>
-          <button
-            type="button"
-            className="admin-company-page-submitt-company-button button"
-            onClick={handleSubmit}
-          >
-            <span className="admin-company-page-submit-company-button-text">
-              <span>Submit</span>
-              <br></br>
-            </span>
-          </button>
+          <div className="admin-company-page-container1">
+            <button
+              type="button"
+              className="admin-company-page-delete-company-button button"
+              onClick={handleDelete}
+            >
+              <span className="admin-company-page-delete-company-button-text">
+                <span>Delete</span>
+                <br></br>
+              </span>
+            </button>
+            <button
+              type="button"
+              onClick={handleSubmit}
+              className="admin-company-page-submit-company-button button"
+            >
+              <span className="admin-company-page-submit-company-button-text">
+                <span>Submit</span>
+                <br></br>
+              </span>
+            </button>
+          </div>
         </form>
         <EmployeesTable rootClassName="employees-table-root-class-name" company_id={companyData._id}>
           {employees.map((employee, index) => (
             index % 2 === 0 ? (
               <EmployeesEvenRow
-                //key={employee._id}
+                employee_id={employee._id}
                 record_number={index + 1}
                 fullname={employee.fullname}
                 email={employee.email}
@@ -115,7 +159,7 @@ const AdminCompanyPage = (props) => {
               />
             ) : (
               <EmployeesOddRow
-                //key={employee._id}
+                employee_id={employee._id}
                 record_number={index + 1}
                 fullname={employee.fullname}
                 email={employee.email}

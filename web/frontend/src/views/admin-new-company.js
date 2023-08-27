@@ -1,5 +1,6 @@
 import React from 'react'
 import { Redirect } from "react-router-dom";
+import { useHistory } from 'react-router-dom';
 import { Helmet } from 'react-helmet'
 import { useState } from 'react'
 
@@ -19,6 +20,7 @@ const AdminNewCompany = (props) => {
     description: '',
     address: '',
   });
+  const history = useHistory();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -39,6 +41,7 @@ const AdminNewCompany = (props) => {
         const data = await response.json();
         console.log('New company created:', data);
         // Redirect or display success message
+        history.push('/admin/companies');
       } else {
         const data = await response.json();
         console.error('Error creating company:', data.error);
