@@ -83,15 +83,25 @@ router.get('/', (req, res) => {
 // Update an employee by ID
 router.put('/', (req, res) => {
   const employeeId = req.query.id;
-  const { name, phone, email, position, accessLevel, companyId } = req.body;
 
-  Employee.findByIdAndUpdate(employeeId, { name, phone, email, position, accessLevel, companyId }, { new: true })
-    .then(updatedEmployee => {
-      if (!updatedEmployee) {
-        return res.status(404).json({ error: 'Employee not found.' });
-      }
-      res.json(updatedEmployee);
-    })
+  const { fullname, phone, email, position, password } = req.body;
+
+  let promise = null;
+
+  if (password == '') {
+    promise = Employee.findByIdAndUpdate(employeeId, { fullname, phone, email, position }, { new: true });
+  }
+  else {
+    const hashedPassword = bcrypt.hashSync(password, 10);
+    promise = Employee.findByIdAndUpdate(employeeId, { fullname, phone, email, position, password: hashedPassword }, { new: true });
+  }
+
+  promise.then(updatedEmployee => {
+    if (!updatedEmployee) {
+      return res.status(404).json({ error: 'Employee not found.' });
+    }
+    res.json(updatedEmployee);
+  })
     .catch(error => {
       console.error(error);
       res.status(500).json({ error: 'Failed to update the employee.' });

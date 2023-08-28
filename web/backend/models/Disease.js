@@ -9,11 +9,11 @@ const diseaseSchema = new mongoose.Schema({
     type: String, 
     required: true 
   },
-  symptoms: { 
-    type: [mongoose.Schema.Types.ObjectId], 
-    ref: 'Symptom', 
-    required: true 
-  }
+  // symptoms: { 
+  //   type: [mongoose.Schema.Types.ObjectId], 
+  //   ref: 'Symptom', 
+  //   required: true 
+  // }
 });
 
 const Disease = mongoose.model('Disease', diseaseSchema);

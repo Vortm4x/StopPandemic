@@ -1,0 +1,16 @@
+.diseases-row-container {
+  width: 100%;
+  height: auto;
+  display: flex;
+  position: relative;
+  align-items: flex-start;
+  flex-direction: row;
+  align-items: stretch;
+  background-color: #a0dcff;
+}
+.diseases-row-container1 {
+  width: 200px;
+}
+.diseases-row-text1 {
+  text-align: justify;
+}

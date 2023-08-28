@@ -1,0 +1,32 @@
+.diseases-table-container {
+  width: 100%;
+  height: auto;
+  display: flex;
+  position: relative;
+  align-items: flex-start;
+  flex-direction: column;
+}
+.diseases-table-employees-header {
+  flex: 0 0 auto;
+  width: 100%;
+  display: flex;
+}
+.diseases-table-container1 {
+  width: 200px;
+}
+.diseases-table-add-new {
+  flex: 0 0 auto;
+  width: 100%;
+  display: flex;
+}
+.diseases-table-text6 {
+  text-decoration: none;
+}
+@media(max-width: 600px) {
+  .diseases-table-employees-header {
+    height: auto;
+  }
+  .diseases-table-add-new {
+    height: auto;
+  }
+}

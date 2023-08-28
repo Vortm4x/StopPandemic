@@ -12,6 +12,8 @@ const pages = [
     '/admin/main',
     '/admin/companies',
     '/admin/companies/:id',
+    '/admin/employee/:id',
+    '/admin/diseases',
     '/admin/new-company',
     '/admin/new-employee',
     '/client/main',

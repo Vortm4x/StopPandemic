@@ -20,6 +20,10 @@ const AdminNavBar = (props) => {
         <span className="">New admin</span>
         <br className=""></br>
       </Link>
+      <Link to="/admin/diseases" className="admin-nav-bar-navlink2 nav-link">
+        <span className="">Diseases</span>
+        <br className=""></br>
+      </Link>
       <Link to="/admin/export-data" className="admin-nav-bar-link nav-link">
         <span className="">Export data</span>
         <br className=""></br>

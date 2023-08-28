@@ -5,12 +5,11 @@ const router = express.Router();
 
 // Add a new disease
 router.post('/add', (req, res) => {
-    const { name, symptoms, treatment } = req.body;
+    const { name, description } = req.body;
 
     const newDisease = new Disease({
         name,
-        symptoms,
-        treatment
+        description,
     });
 
     newDisease.save()
@@ -23,33 +22,34 @@ router.post('/add', (req, res) => {
         });
 });
 
-// Retrieve all diseases
-router.get('/', (req, res) => {
-    Disease.find()
-        .then(diseases => {
-            res.json(diseases);
-        })
-        .catch(error => {
-            console.error(error);
-            res.status(500).json({ error: 'Failed to retrieve diseases.' });
-        });
-});
-
-// Retrieve a disease by ID
+// Retrieve diseases
 router.get('/', (req, res) => {
     const diseaseId = req.query.id;
 
-    Disease.findById(diseaseId)
-        .then(disease => {
-            if (!disease) {
-                return res.status(404).json({ error: 'Disease not found.' });
-            }
-            res.json(disease);
-        })
-        .catch(error => {
-            console.error(error);
-            res.status(500).json({ error: 'Failed to retrieve the disease.' });
-        });
+    if (diseaseId) {
+        // Retrieve a disease by ID
+        Disease.findById(diseaseId)
+            .then(disease => {
+                if (!disease) {
+                    return res.status(404).json({ error: 'Disease not found.' });
+                }
+                res.json(disease);
+            })
+            .catch(error => {
+                console.error(error);
+                res.status(500).json({ error: 'Failed to retrieve the disease.' });
+            });
+    } else {
+        // Retrieve all diseases
+        Disease.find()
+            .then(diseases => {
+                res.json(diseases);
+            })
+            .catch(error => {
+                console.error(error);
+                res.status(500).json({ error: 'Failed to retrieve diseases.' });
+            });
+    }
 });
 
 // Delete a disease by ID
@@ -72,9 +72,9 @@ router.delete('/', (req, res) => {
 // Update a disease by ID
 router.put('/', (req, res) => {
     const diseaseId = req.query.id;
-    const { name, symptoms, treatment } = req.body;
+    const { name, description } = req.body;
 
-    Disease.findByIdAndUpdate(diseaseId, { name, symptoms, treatment }, { new: true })
+    Disease.findByIdAndUpdate(diseaseId, { name, description }, { new: true })
         .then(updatedDisease => {
             if (!updatedDisease) {
                 return res.status(404).json({ error: 'Disease not found.' });
