@@ -1,5 +1,7 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const security = require('../security');
 const Employee = require('../models/Employee');
 
 const router = express.Router();
@@ -26,6 +28,46 @@ router.post('/register', (req, res) => {
       console.error(error);
       res.status(500).json({ error: 'Failed to create the employee.' });
     });
+});
+
+// Employee login route
+router.post('/login', (req, res) => {
+  const { email, password } = req.body;
+
+  Employee.findOne({ email })
+      .populate('company') // Populate the 'company' field
+      .then(employee => {
+          if (employee) {
+              bcrypt.compare(password, employee.password)
+                  .then(passwordMatch => {
+                      if (passwordMatch) {
+                          const token = jwt.sign({ id: employee._id }, security.session_key, { expiresIn: '1h' });
+
+                          res.status(200).json({
+                              _id: employee._id,
+                              fullname: employee.fullname,
+                              email: employee.email,
+                              company: employee.company,
+                              position: employee.position,
+                              phone: employee.phone,
+                              token,
+                          });
+                      } else {
+                          res.status(401).json({ message: 'Login failed: Invalid credentials' });
+                      }
+                  })
+                  .catch(error => {
+                      console.error('Error comparing passwords:', error);
+                      res.status(500).json({ message: 'An error occurred while logging in' });
+                  });
+          } else {
+              res.status(401).json({ message: 'Login failed: Invalid credentials' });
+          }
+      })
+      .catch(error => {
+          console.error('Error finding employee:', error);
+          res.status(500).json({ message: 'An error occurred while logging in' });
+      });
 });
 
 

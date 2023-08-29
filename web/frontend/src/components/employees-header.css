@@ -1,0 +1,12 @@
+.employees-header-employees-header {
+  flex: 0 0 auto;
+  width: 100%;
+  display: flex;
+  position: relative;
+  background-color: #65b9bb;
+}
+@media(max-width: 600px) {
+  .employees-header-employees-header {
+    height: auto;
+  }
+}

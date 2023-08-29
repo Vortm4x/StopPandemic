@@ -118,7 +118,6 @@
   color: #FFFFFF;
   font-style: italic;
   font-weight: 600;
-  background-color: #65bb65;
 }
 .table-content-cell {
   color: #3c3131;
@@ -148,6 +147,15 @@
 
 .table-content-disease-cell {
   flex: none;
+}
+.company-info-text {
+  width: 50%;
+  font-size: larger;
+  align-self: flex-start;
+}
+.company-info-title {
+  font-style: italic;
+  text-align: right;
 }
 .Content {
   font-size: 16px;

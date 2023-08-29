@@ -1,144 +1,98 @@
 const express = require('express');
 const HealthReport = require('../models/HealthReport');
+const Employee = require('../models/Employee');
+const Disease = require('../models/Disease');
+const Company = require('../models/Company');
 
 const router = express.Router();
 
-// Create a new health report
-router.post('/add', (req, res) => {
-    const { date, disease, seekEmployees, company } = req.body;
-
-    const newHealthReport = new HealthReport({
+// Add a new health report
+router.post('/add', async (req, res) => {
+    try {
+      const { date, employeeId, diseaseId, companyId } = req.body;
+  
+      // Check if the employee exists
+      const employee = await Employee.findById(employeeId);
+      if (!employee) {
+        return res.status(400).json({ error: 'Employee not found.' });
+      }
+  
+      // Check if the disease (if provided) exists
+      let disease = null;
+      if (diseaseId) {
+        disease = await Disease.findById(diseaseId);
+        if (!disease) {
+          return res.status(400).json({ error: 'Disease not found.' });
+        }
+      }
+  
+      // Check if the company exists
+      const company = await Company.findById(companyId);
+      if (!company) {
+        return res.status(400).json({ error: 'Company not found.' });
+      }
+  
+      // Create a new health report
+      const newReport = new HealthReport({
         date,
-        disease,
-        seekEmployees,
-        company
-    });
-
-    newHealthReport.save()
-        .then(savedReport => {
-            res.status(201).json(savedReport);
-        })
-        .catch(error => {
-            console.error(error);
-            res.status(500).json({ error: 'Failed to create the health report.' });
-        });
-});
-
-// Retrieve health reports by date, disease, and company ID
-router.get('/', (req, res) => {
-    const { date, disease, company_id } = req.query;
-
-    if (!company_id) {
-        return res.status(400).json({ error: 'Company ID is required.' });
+        employee: employeeId,
+        disease: diseaseId,
+        company: companyId,
+      });
+  
+      const savedReport = await newReport.save();
+      res.status(201).json(savedReport);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Failed to add the health report.' });
     }
-
-    const query = {
-        company: company_id
-    };
-
-    if (date) {
-        query.date = date;
+  });
+  
+  router.get('/', async (req, res) => {
+    try {
+      const { date, diseaseId, companyId } = req.query;
+  
+      // Find the disease by ID
+      const disease = await Disease.findById(diseaseId);
+      if (!disease) {
+        return res.status(404).json({ error: 'Disease not found.' });
+      }
+  
+      // Get the total number of employees in the company
+      const totalEmployees = await Employee.countDocuments({ company: companyId });
+  
+      // Get the number of employees that reported the disease on the given date
+      const reportedEmployees = await HealthReport.countDocuments({
+        disease: diseaseId,
+        date: new Date(date),
+      });
+  
+      res.json({
+        totalEmployees,
+        reportedEmployees,
+      });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Failed to fetch health report statistics.' });
     }
+  });
+  
 
-    if (disease) {
-        query.disease = disease;
+  // Delete a health report by ID
+router.delete('/', async (req, res) => {
+    const reportId = req.query.id;
+  
+    try {
+      const deletedReport = await HealthReport.findByIdAndDelete(reportId);
+      if (!deletedReport) {
+        return res.status(404).json({ error: 'Health report not found.' });
+      }
+      res.json({ message: 'Health report deleted successfully.' });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Failed to delete the health report.' });
     }
-
-    HealthReport.find(query)
-        .then(reports => {
-            res.json(reports);
-        })
-        .catch(error => {
-            console.error(error);
-            res.status(500).json({ error: 'Failed to retrieve health reports.' });
-        });
-});
-
-
-// Delete health reports by date and/or disease
-router.delete('/', (req, res) => {
-    const { date, disease, company_id } = req.query;
-
-    if (!company_id) {
-        return res.status(400).json({ error: 'Company ID is required.' });
-    }
-
-    const query = {
-        company: company_id
-    };
-
-    if (date) {
-        query.date = date;
-    }
-
-    if (disease) {
-        query.disease = disease;
-    }
-
-    HealthReport.deleteMany(query)
-        .then(deletedReports => {
-            res.json({ message: 'Health reports deleted successfully.' });
-        })
-        .catch(error => {
-            console.error(error);
-            res.status(500).json({ error: 'Failed to delete health reports.' });
-        });
-});
-
-// Update a health report by disease and date
-router.put('/', (req, res) => {
-    const { disease, date, seekEmployees, company } = req.body;
-
-    HealthReport.findOneAndUpdate({ disease, date, company }, { seekEmployees }, { new: true })
-        .then(updatedReport => {
-            if (!updatedReport) {
-                return res.status(404).json({ error: 'Health report not found.' });
-            }
-            res.json(updatedReport);
-        })
-        .catch(error => {
-            console.error(error);
-            res.status(500).json({ error: 'Failed to update the health report.' });
-        });
-});
-
-// Update a health report
-router.patch('/', (req, res) => {
-    const { date, employeeId, disease, seek, company } = req.body;
-
-    HealthReport.findOne({ date, disease, company })
-        .then(report => {
-            if (!report) {
-                return res.status(404).json({ error: 'Health report not found.' });
-            }
-
-            if (seek) {
-                // Add employeeId to seekEmployees array if it doesn't already exist
-                if (!report.seekEmployees.includes(employeeId)) {
-                    report.seekEmployees.push(employeeId);
-                }
-            } else {
-                // Remove employeeId from seekEmployees array if it exists
-                const index = report.seekEmployees.indexOf(employeeId);
-                if (index > -1) {
-                    report.seekEmployees.splice(index, 1);
-                }
-            }
-
-            // Save the updated health report
-            report.save()
-                .then(updatedReport => {
-                    res.json(updatedReport);
-                })
-                .catch(error => {
-                    console.error(error);
-                    res.status(500).json({ error: 'Failed to update the health report.' });
-                });
-        })
-        .catch(error => {
-            console.error(error);
-            res.status(500).json({ error: 'Failed to retrieve the health report.' });
-        });
-});
+  });
+  
 
 module.exports = router;

@@ -16,11 +16,17 @@ const pages = [
     '/admin/diseases',
     '/admin/new-company',
     '/admin/new-employee',
-    '/client/main',
     '/admin/export-data',
     '/admin/logout',
-    '/client/login',
+
     '/client/main',
+    '/client/login',
+    '/client/logout',
+    '/client/company',
+    '/client/main',
+    '/client/health-report',
+    '/client/statistics',
+    '/',
 ];
 
 app.use(express.json());

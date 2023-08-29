@@ -12,6 +12,6 @@ module.exports = {
     '/api/admin': adminRoutes,
     '/api/disease': diseaseRoutes,
     '/api/symptom': symptomRoutes,
-    '/api/healthReport': healthReportRoutes,
+    '/api/health-report': healthReportRoutes,
     '/api/attendance': attendanceRoutes,
 }

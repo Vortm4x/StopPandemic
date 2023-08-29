@@ -1,0 +1,48 @@
+.client-health-report-container {
+  width: 100%;
+  display: flex;
+  overflow: auto;
+  min-height: 100vh;
+  align-items: center;
+  flex-direction: column;
+}
+.client-health-report-client-main {
+  flex: auto;
+  width: 100%;
+  display: flex;
+  align-self: stretch;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+.client-health-report-health-report-form {
+  gap: var(--dl-space-space-twounits);
+  width: 33%;
+  height: auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  padding-top: var(--dl-space-space-oneandhalfunits);
+  padding-left: var(--dl-space-space-unit);
+  border-radius: 20px;
+  padding-right: var(--dl-space-space-unit);
+  flex-direction: column;
+  padding-bottom: var(--dl-space-space-oneandhalfunits);
+  justify-content: center;
+  background-color: #115f11;
+}
+.client-health-report-date {
+  width: 100%;
+}
+.client-health-report-disease {
+  width: 100%;
+}
+.client-health-report-submit-button {
+  width: 50%;
+  align-self: center;
+  border-radius: var(--dl-radius-radius-radius8);
+}
+.client-health-report-submit-button-text {
+  font-size: x-large;
+  border-radius: var(--dl-radius-radius-radius8);
+}

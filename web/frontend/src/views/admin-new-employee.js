@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useHistory } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
 
 import CompanyLogo from '../components/company-logo'
@@ -12,6 +12,7 @@ const AdminNewEmployee = (props) => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const companyId = queryParams.get('company_id');
+  const history = useHistory();
 
   const [formData, setFormData] = useState({
     fullname: '',
@@ -49,7 +50,8 @@ const AdminNewEmployee = (props) => {
       .then(response => response.json())
       .then(savedEmployee => {
         console.log('New employee registered:', savedEmployee);
-        // Optionally, you can reset the form or show a success message
+        
+        history.push(`/admin/companies/${savedEmployee.company}`)
       })
       .catch(error => {
         console.error('Error registering employee:', error);

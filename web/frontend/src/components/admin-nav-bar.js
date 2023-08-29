@@ -28,7 +28,7 @@ const AdminNavBar = (props) => {
         <span className="">Export data</span>
         <br className=""></br>
       </Link>
-      <Link to="/admin/main1" className="admin-nav-bar-link1 nav-link">
+      <Link to="/admin/logout" className="admin-nav-bar-link1 nav-link">
         <span className="">Log out</span>
         <br className=""></br>
       </Link>
